@@ -1,5 +1,43 @@
 ## Onebrick Task
 
+### Setup and Run the application
+
+1. Clone the repository
+```bash 
+git clone https://github.com/Gustibimo/brick-task.git
+````
+
+2. Download the dependencies
+```bash
+go mod tidy
+```
+
+3. Run the application
+```bash
+go run cmd/main.go
+```
+
+
+### Code Structure
+
+The code is structured in a way that it is easy to understand and maintain. The code is divided into:
+
+1. `handler` package contains the HTTP handlers for the endpoints. The handlers are responsible for parsing the request, calling the service and returning the response.
+2. `usecase` package contains the business logic of the application. The usecase is responsible for validating the request, calling the repository and returning the response.
+3. `repository` package contains the repository for the application. The repository is responsible for calling the external services and returning the response.
+4. `models` package contains the models for the application. The models are responsible for defining the request and response structure for the application.
+5. `gateway` package contains the external services for the application. The gateway is responsible for calling the external services and returning the response.
+
+### DB Migration
+
+This application use Goose for DB migration. The migration file is located in `db/postgres` directory. The migration is automatically run when the application is started.
+
+Create migration file can be done by running the following command:
+```bash
+make migration-create name=[migration_name]
+```
+
+### Endpoints
 The task is to create 3 endpoints for payments processing. The endpoints are:
 
 1. Validate bank account
