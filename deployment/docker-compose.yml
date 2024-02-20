@@ -1,0 +1,31 @@
+version: '3.8'
+
+# setup for the services from dockerfile and postgres
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: brick_task
+    ports:
+      - "9003:9003"
+    networks:
+      - brick_network
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: postgres_brick
+    environment:
+      POSTGRES_DB: brick_task
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - brick_network
+
+networks:
+    brick_network:
+        driver: bridge
