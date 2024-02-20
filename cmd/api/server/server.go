@@ -2,6 +2,7 @@ package server
 
 import (
 	"brick-task/internal/domain/payments/handler"
+	"brick-task/internal/middleware"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/rs/cors"
@@ -12,7 +13,8 @@ import (
 
 type Server struct {
 	HttpHandler *handler.Handler
-	router      *echo.Echo
+	Router      *echo.Echo
+	Middleware  *middleware.CustomMiddleware
 	Port        int
 }
 
@@ -25,7 +27,7 @@ func (s *Server) Run() error {
 		AllowedMethods:   []string{"GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"*"},
 		AllowCredentials: true,
-	}).Handler(s.router)
+	}).Handler(s.Router)
 
 	srv := &http.Server{
 		Handler:      httpHandler,

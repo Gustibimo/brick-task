@@ -20,7 +20,7 @@ func NewBankClient() BankClient {
 func (b *bankClient) BankAccountInquiry(accountNumber string, bankCode string) (bool, error) {
 	// call API to validate bank account
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://api.paystack.co/bank/resolve?account_number="+accountNumber+"&bank_code="+bankCode, nil)
+	req, err := http.NewRequest("GET", "https://65d34599522627d5010875bb.mockapi.io/api/v1/inquiry", nil)
 	if err != nil {
 		return false, err
 	}

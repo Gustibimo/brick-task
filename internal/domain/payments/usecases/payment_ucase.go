@@ -10,8 +10,9 @@ type paymentUsecase struct {
 	bankGateway gateway.BankClient
 }
 
-func NewPaymentUsecase(paymentRepo payments.Repository) payments.UseCase {
+func NewPaymentUsecase(paymentRepo payments.Repository, client gateway.BankClient) payments.UseCase {
 	return &paymentUsecase{
 		paymentRepo: paymentRepo,
+		bankGateway: client,
 	}
 }

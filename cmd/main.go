@@ -6,6 +6,7 @@ import (
 	"brick-task/internal/domain/payments/handler"
 	"brick-task/internal/domain/payments/repositories"
 	"brick-task/internal/domain/payments/usecases"
+	gateway "brick-task/internal/gateway/http"
 	"brick-task/pkg/pggen"
 	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
@@ -53,7 +54,8 @@ func initInfra() {
 	dbConnection := pggen.Init("localhost", "5432", "postgres", "postgres", "brick_task", "brick")
 
 	paymentRepository := repositories.NewPaymentRepository(dbConnection)
-	paymentUsecase := usecases.NewPaymentUsecase(paymentRepository)
+	bankGateway := gateway.NewBankClient()
+	paymentUsecase := usecases.NewPaymentUsecase(paymentRepository, bankGateway)
 
 	paymentHandler = handler.NewHandler(paymentUsecase)
 
